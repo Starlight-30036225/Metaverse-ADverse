@@ -9,16 +9,16 @@ public class TvScipt : MonoBehaviour
     UnityEngine.Video.VideoPlayer VP;
     public bool IsPlaying = false;
     public bool InSight;
-    public TMPro.TextMeshPro Textboxeone;
-    public TMPro.TextMeshPro Textboxetwo; 
-    public TMPro.TextMeshPro Textboxethree;
-    public TMPro.TextMeshPro Textboxefour;
+    public TMPro.TextMeshPro[] Textboxes;
+    public int agression;
+
 
     // Start is called before the first frame update
     void Start()
     {
         VP = GetComponent<UnityEngine.Video.VideoPlayer>();
         VP.Play();
+        agression = 0;
 
     }
 
@@ -32,10 +32,12 @@ public class TvScipt : MonoBehaviour
     {
         if (InSight)
         {
-            if (!IsPlaying) {
+            if (!IsPlaying)
+            {
                 VP.Play();
                 IsPlaying = true;
-                affectText(false);
+                agression = 0;
+                UpdateAgression();
             }
         }
         else
@@ -43,24 +45,62 @@ public class TvScipt : MonoBehaviour
             if (IsPlaying)
             {
                 VP.Pause();
-                IsPlaying=false;
-                affectText(true);
+                IsPlaying = false;
+                checkbeforeupdate();
+               
             }
         }
     }
 
-    private void affectText(bool active)
+    private void checkbeforeupdate() {
+        if (!InSight && agression <5) { 
+        agression++;
+        UpdateAgression();
+        Invoke("checkbeforeupdate", 2);
+        }
+    }
+    private void UpdateAgression()
     {
-        string text = " ";
-        if (active)
+
+        switch (agression)
         {
-            text = "CONTINUE WATCHING---CONTINUE WATCHING---CONTINUE WATCHING---CONTINUE WATCHING---CONTINUE WATCHING---CONTINUE WATCHING---CONTINUE WATCHING---CONTINUE WATCHING---CONTINUE WATCHING---CONTINUE WATCHING---CONTINUE WATCHING---CONTINUE WATCHING---CONTINUE WATCHING---CONTINUE WATCHING";
+            case 0:
+                affectText("", Color.white);
+                break;
+            case 1:
+                affectText("Please Continue watching  ---  ", Color.white);
+                break;
+            case 2:
+                affectText("Continue watching  ---  ", Color.white);
+                break;
+            case 3:
+                affectText("CONTINUE WATCHING  ---  ", Color.red);
+                break;
+            case 4:
+                affectText("YOU MUST CONTINUE WATCHING  ---  ", Color.red);
+                break;
+            default:
+
+                break;
+
         }
 
-        Textboxeone.text = text;
-        Textboxetwo.text = text;
-        Textboxethree.text = text;
-        Textboxefour.text = text;
+
+
+    }
+
+    private void affectText(string text, Color newcolor)
+    {
+        text = text + text;
+        text = text + text;
+        text = text + text;
+        text = text + text;
+        for (int i = 0; i < Textboxes.Length; i++)
+        {
+            Textboxes[i].text = text;
+            Textboxes[i].color = newcolor;
+
+        }
 
     }
 }

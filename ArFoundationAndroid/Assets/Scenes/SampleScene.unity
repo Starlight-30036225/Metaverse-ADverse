@@ -1215,10 +1215,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   IsPlaying: 0
   InSight: 0
-  Textboxeone: {fileID: 65284395}
-  Textboxetwo: {fileID: 40919616}
-  Textboxethree: {fileID: 223974228}
-  Textboxefour: {fileID: 223974228}
+  Textboxes:
+  - {fileID: 65284395}
+  - {fileID: 40919616}
+  - {fileID: 1828601337}
+  - {fileID: 223974228}
+  agression: 0
 --- !u!65 &2018935062
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -1288,6 +1290,26 @@ PrefabInstance:
       propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 2100000, guid: adc8679fda962ad4fadf8a9e8e5d48fd, type: 2}
+    - target: {fileID: 3926178167607251460, guid: c0e6981dd83eb37418e142619879f6b6, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3926178167607251460, guid: c0e6981dd83eb37418e142619879f6b6, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3926178167607251460, guid: c0e6981dd83eb37418e142619879f6b6, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3926178167607251460, guid: c0e6981dd83eb37418e142619879f6b6, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3926178167607251460, guid: c0e6981dd83eb37418e142619879f6b6, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 180
+      objectReference: {fileID: 0}
     - target: {fileID: 5872486412094864097, guid: c0e6981dd83eb37418e142619879f6b6, type: 3}
       propertyPath: m_RootOrder
       value: 3
