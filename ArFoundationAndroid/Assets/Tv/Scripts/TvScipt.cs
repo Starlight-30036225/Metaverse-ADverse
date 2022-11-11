@@ -68,16 +68,19 @@ public class TvScipt : MonoBehaviour
                 affectText("", Color.white);
                 break;
             case 1:
-                affectText("Please Continue watching  ---  ", Color.white);
+                affectText("Please Continue watching      Please Continue watching\nPlease Continue watching      Please Continue watching\nPlease Continue watching      Please Continue watching\n", Color.white);
+
+
+
                 break;
             case 2:
-                affectText("Continue watching  ---  ", Color.white);
+                affectText("Continue watching!                            Continue watching!\nContinue watching!                            Continue watching!\nContinue watching!                            Continue watching!\n", Color.white);
                 break;
             case 3:
-                affectText("CONTINUE WATCHING  ---  ", Color.red);
+                affectText("CONTINUE WATCHING           CONTINUE WATCHING\nCONTINUE WATCHING           CONTINUE WATCHING\nCONTINUE WATCHING           CONTINUE WATCHING\n", Color.red);
                 break;
             case 4:
-                affectText("YOU MUST CONTINUE WATCHING  ---  ", Color.red);
+                affectText("                YOU MUST CONTINUE WATCHING       \n                YOU MUST CONTINUE WATCHING       \n                YOU MUST CONTINUE WATCHING       \n", Color.red);
                 break;
             default:
 
@@ -91,9 +94,6 @@ public class TvScipt : MonoBehaviour
 
     private void affectText(string text, Color newcolor)
     {
-        text = text + text;
-        text = text + text;
-        text = text + text;
         text = text + text;
         for (int i = 0; i < Textboxes.Length; i++)
         {
