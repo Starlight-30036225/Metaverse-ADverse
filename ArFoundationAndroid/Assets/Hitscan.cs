@@ -16,7 +16,6 @@ public class Hitscan : MonoBehaviour
         RaycastHit hit;
         if (Physics.Raycast(transform.position, transform.forward, out hit)) {
            TempTv = hit.transform.GetComponent<TvScipt>();
-            print(hit.transform.name);
             if (TempTv != null)
             {
                 Tv.InSight = true;
