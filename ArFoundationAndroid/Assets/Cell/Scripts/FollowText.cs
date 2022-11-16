@@ -8,7 +8,7 @@ public class FollowText : MonoBehaviour
 {
     public GameObject FollowPoint;
     public float Speed = 0.9f;
-    //public TMPro.TextMeshPro Textbox;
+    public GameObject ConnectedBox, ConnectedText;
 
     public float Reactivity;
     private float difference;
@@ -16,11 +16,17 @@ public class FollowText : MonoBehaviour
     private Quaternion Targetrotation;
     private float Completeion;
 
+    public AudioSource audioSource1;
+    public AudioSource audioSource2;
+    public AudioSource audioSource3;
+
+
+
     private Coroutine LookCoroutine;
     // Start is called before the first frame update
     void Start()
     {
-      
+        Setvisiblity(false);  //Ensures the textbox is hidden at the start
     }
 
     // Update is called once per frame
@@ -38,23 +44,23 @@ public class FollowText : MonoBehaviour
        
     }
 
-    private void FixedUpdate()
+    private void FixedUpdate() 
     {
         if (Moving)
         {
-            Completeion += 0.02f;
+            Completeion += 0.02f;  //increments completeion so it takes 50 ticks to move to target location
             transform.rotation = Quaternion.Slerp(transform.rotation, Targetrotation, Completeion);   //Makes object move gradually instead of suddenly
         }                                                                                       
         if (Completeion >= 1f)
         {
             Moving = false;
-            Completeion = 0f;
+            Completeion = 0f;       //resets the completion counter, and allows the box to begin movement again when conditions are met
         }
 
        
     }
 
-    private IEnumerator Lookat() {
+    private IEnumerator Lookat() {  //dead function, ignore
         Moving = true;
         float time = 0f;
         Targetrotation = FollowPoint.transform.rotation;  //Gets location to move to
@@ -76,5 +82,30 @@ public class FollowText : MonoBehaviour
         Targetrotation = FollowPoint.transform.rotation;  //Gets location to move to
         Targetrotation.z = 0f;  //Stops the object rotating to fit the cameras Z rotation
         Completeion = 0f;
+    }
+
+    public void Setvisiblity(bool Toggle)
+    {
+        ConnectedText.SetActive(Toggle);    //hides the text
+        ConnectedBox.SetActive(Toggle);     //hides the back box
+    }
+
+
+    public void TriggerSounds(bool Toggle)
+    {
+        if (Toggle)
+        {
+        audioSource1.Play();  //causes the three voices to start looping
+        audioSource2.Play();
+        audioSource3.Play();
+        }
+        else { 
+            
+        audioSource1.Stop();  //stops the voice loop
+        audioSource2.Stop();
+        audioSource3.Stop();
+        }
+    
+
     }
 }
