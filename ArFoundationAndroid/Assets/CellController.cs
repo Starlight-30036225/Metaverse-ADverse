@@ -29,7 +29,7 @@ public class CellController : MonoBehaviour
         }
         else
         {
-            FlashCounter += 0.01f;  //increments so it takes 100 ticks to move to first material
+            FlashCounter += 0.02f;  //increments so it takes 100 ticks to move to first material
             render.material = Mat2;
         }
         if (FlashCounter >= 1)
