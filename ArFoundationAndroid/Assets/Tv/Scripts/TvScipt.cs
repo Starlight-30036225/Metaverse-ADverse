@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine.Events;
 using UnityEngine;
 using TMPro;
+using UnityEngine.Video;
 
 public class TvScipt : MonoBehaviour
 {
@@ -13,9 +14,15 @@ public class TvScipt : MonoBehaviour
     public Notification NotifController;
     public GameObject Cell;
     public GameObject FalseScreen;
+    public VideoClip BaseVideo;
+    public VideoClip Ad1;
+    public VideoClip Ad2;
 
     private bool IsPlaying = false;
     private int agression;
+    private string CurrentVid;
+    private double ReturnTime;
+
 
 
     // Start is called before the first frame update
@@ -23,15 +30,63 @@ public class TvScipt : MonoBehaviour
     {
         VP = GetComponent<UnityEngine.Video.VideoPlayer>();  //get the videoplayer object from the connected game object
         VP.Play(); //Starts the video (needs to be updated)
+  print(VP.canSetTime);
         agression = 0;  
         UpdateAgression();
+        CurrentVid = "Core";
+        VP.loopPointReached += EndReached;
+        Invoke("startAd1", 47);  //recursive call to this function after 3 seconds
     }
 
+
+    void EndReached(UnityEngine.Video.VideoPlayer VP)
+    {
+        if (CurrentVid != "Core") {
+            VP.clip = BaseVideo;
+            VP.Play();
+            VP.time = ReturnTime;
+            if (CurrentVid == "Ad1") {
+                Invoke("startAd2", 69);
+            }
+            CurrentVid = "Core";
+        }
+
+    }
+
+    void startAd1() {
+        ReturnTime = VP.time;
+        VP.clip = Ad1;
+        VP.Play();
+        CurrentVid = "Ad1";
+    }
+
+
+    void startAd2()
+    {
+        ReturnTime = VP.time;
+        VP.clip = Ad2;
+        VP.Play();
+        CurrentVid = "Ad2";
+    }
 
     // Update is called once per frame
     public void Update()
     {
-        detectHit();
+        if (CurrentVid == "Core") { 
+           
+            if (!IsPlaying)  //if the video is not playing, starts the video, sets the agression to zero and resets all connected objects
+            {
+                VP.Play();
+                IsPlaying = true;
+                agression = 0;
+                UpdateAgression();
+            }
+        }
+        else
+        {
+            detectHit();
+        }
+
     }
     public void detectHit()
     {

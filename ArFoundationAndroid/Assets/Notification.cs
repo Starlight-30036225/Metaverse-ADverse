@@ -47,7 +47,7 @@ public class Notification : MonoBehaviour
     }
 
     void OnApplicationPause(bool pause) {       //When application is taken out of focus, this is called
-        if (pause)
+        if (pause && ShouldSend)
         {
             identifier = AndroidNotificationCenter.SendNotification(ReturnNotif, "Default_Channel");
         }
