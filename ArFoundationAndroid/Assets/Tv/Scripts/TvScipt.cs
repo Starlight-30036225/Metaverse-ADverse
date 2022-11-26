@@ -33,20 +33,20 @@ public class TvScipt : MonoBehaviour
   print(VP.canSetTime);
         agression = 0;  
         UpdateAgression();
-        CurrentVid = "Core";
-        VP.loopPointReached += EndReached;
-        Invoke("startAd1", 47);  //recursive call to this function after 3 seconds
+        CurrentVid = "Core";  
+        VP.loopPointReached += EndReached;  //When the video reaches the end(Loop point) it will call EndReached
+        Invoke("startAd1", 47);  //Plays the first ad in 47 seconds
     }
 
 
     void EndReached(UnityEngine.Video.VideoPlayer VP)
     {
         if (CurrentVid != "Core") {
-            VP.clip = BaseVideo;
+            VP.clip = BaseVideo;    //Sets the video to the core video
             VP.Play();
-            VP.time = ReturnTime;
+            VP.time = ReturnTime;   //Sets the current time to the time saved when it was paused
             if (CurrentVid == "Ad1") {
-                Invoke("startAd2", 69);
+                Invoke("startAd2", 69); //Plays the second ad in 69 seconds, nice
             }
             CurrentVid = "Core";
         }
@@ -54,8 +54,8 @@ public class TvScipt : MonoBehaviour
     }
 
     void startAd1() {
-        ReturnTime = VP.time;
-        VP.clip = Ad1;
+        ReturnTime = VP.time;   //Saves the current video time
+        VP.clip = Ad1;  //starts ad 1
         VP.Play();
         CurrentVid = "Ad1";
     }
@@ -63,8 +63,8 @@ public class TvScipt : MonoBehaviour
 
     void startAd2()
     {
-        ReturnTime = VP.time;
-        VP.clip = Ad2;
+        ReturnTime = VP.time; //Saves the current video time
+        VP.clip = Ad2;  //starts ad 2
         VP.Play();
         CurrentVid = "Ad2";
     }
@@ -74,17 +74,16 @@ public class TvScipt : MonoBehaviour
     {
         if (CurrentVid == "Core") { 
            
-            if (!IsPlaying)  //if the video is not playing, starts the video, sets the agression to zero and resets all connected objects
+            if (!IsPlaying)  //if the video is not playing, starts the video, edge cases
             {
                 VP.Play();
                 IsPlaying = true;
-                agression = 0;
                 UpdateAgression();
             }
         }
         else
         {
-            detectHit();
+            detectHit();        //only detect hits on ads
         }
 
     }
